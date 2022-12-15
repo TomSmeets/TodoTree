@@ -57,6 +57,8 @@ public class NodeView implements TextWatcher, View.OnClickListener {
             count.setText(Integer.toString(child_count));
             count.setTextSize(TypedValue.COMPLEX_UNIT_PX, size*0.4f);
             count.setOnClickListener(this);
+            count.setHeight(size);
+            count.setGravity(Gravity.CENTER_VERTICAL);
             row.addView(count);
         }
 
