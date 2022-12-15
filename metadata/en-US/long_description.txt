@@ -1,0 +1,8 @@
+Keep your mind clear by quickly creating a nested tree of notes and tasks.
+
+Some example usages of this app are:
+* Creating quick notes on a given subject
+* Exploring complicated ideas for potential projects.
+* Maintain a list of tasks that have to be done
+* Maintain a list of long term tasks with notes.
+* Keep a groceries list
