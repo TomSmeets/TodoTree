@@ -2,26 +2,38 @@ package nl.tsmeets.todotree;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import nl.tsmeets.todotree.model.Node;
 import nl.tsmeets.todotree.model.Tree;
 import nl.tsmeets.todotree.store.Store;
 import nl.tsmeets.todotree.store.Util;
 import nl.tsmeets.todotree.view.NodeView;
+import nl.tsmeets.todotree.view.SimplePopupMenu;
 
 public class MainActivity extends Activity {
     public Tree tree;
     public Store store;
+
+
+    private static int INTENT_CODE_EXPORT_CSV = 1;
 
 
     private boolean node_is_below(Node child, Node parent) {
@@ -40,10 +52,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button new_button = findViewById(R.id.main_list_button_add);
-
         findViewById(R.id.main_list_button_add).setOnClickListener(l -> {
-
             final EditText text = new EditText(this);
             text.setHint("text");
             AlertDialog d = new AlertDialog.Builder(this)
@@ -91,22 +100,6 @@ public class MainActivity extends Activity {
             }
         });
 
-        findViewById(R.id.main_list_button_del).setOnLongClickListener(l -> {
-            new AlertDialog.Builder(this)
-                    .setTitle("Confirm")
-                    .setMessage("Do you want to remove all DONE nodes?")
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setPositiveButton("Yes", (dialog, which) -> {
-                        for (Node n : tree.focus.children()) {
-                            if (n.state == 1) n.detach();
-                        }
-                        view_node();
-                    })
-                    .setNegativeButton("No", null)
-                    .show();
-            return true;
-        });
-
         findViewById(R.id.main_list_button_yank).setOnClickListener(l -> {
             if (tree.focus.parent != null) {
                 Node n = tree.focus;
@@ -122,6 +115,35 @@ public class MainActivity extends Activity {
             tree.paste();
             view_node();
             saveData();
+        });
+
+        findViewById(R.id.main_list_button_more).setOnClickListener(v -> {
+            SimplePopupMenu menu = new SimplePopupMenu(this, v);
+
+            menu.add("Export Data", () -> {
+                SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.setType("text/csv");
+                intent.putExtra(Intent.EXTRA_TITLE, "TodoTree-data-" + f.format(new Date()) + ".csv");
+                startActivityForResult(intent, INTENT_CODE_EXPORT_CSV);
+            });
+
+            menu.add("Remove Done", () -> {
+                new AlertDialog.Builder(this)
+                        .setTitle("Confirm")
+                        .setMessage("Do you want to remove all DONE nodes?")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton("Yes", (dialog, which) -> {
+                            for (Node n : tree.focus.children()) {
+                                if (n.state == 1) n.detach();
+                            }
+                            view_node();
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+            });
+            menu.show();
         });
 
         tree = new Tree();
@@ -185,13 +207,31 @@ public class MainActivity extends Activity {
         int yank_count = tree.yank.child_count();
         Button paste_button = findViewById(R.id.main_list_button_paste);
         if (yank_count > 0) {
-            paste_button.setText("Paste (" + tree.yank.child_count() + ")");
+            paste_button.setText("Place (" + tree.yank.child_count() + ")");
         } else {
-            paste_button.setText("Paste");
+            paste_button.setText("Place");
         }
     }
 
     public void add_node(LinearLayout layout, Node n, int size, boolean editable, boolean is_parent) {
         new NodeView(this, layout, n, size, editable, is_parent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == INTENT_CODE_EXPORT_CSV && resultCode == RESULT_OK) {
+            Uri uri = data.getData();
+            try {
+                OutputStream output = getContentResolver().openOutputStream(uri);
+                output.write(store.store(tree).getBytes());
+                output.flush();
+                output.close();
+            } catch (IOException e) {
+                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+            }
+            return;
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
