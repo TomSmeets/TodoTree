@@ -1,20 +1,13 @@
 package nl.tsmeets.todotree.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 public class Node {
-    // This is the fundamental node, we can use it for many things in the future, and integrate it with the entire desktop
-    // We can sync this node with my pc, or use pc as ground truth
-    // position: long x, y;
-    // images:   bitmap image;
-    // action:   "shell command"
     public Node child, next;
     public String text;
     public int state;
-
 
     public long ctime;
     public long mtime;

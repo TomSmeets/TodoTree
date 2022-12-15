@@ -1,14 +1,10 @@
 package nl.tsmeets.todotree.store;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
 import nl.tsmeets.todotree.model.Node;
 import nl.tsmeets.todotree.model.Tree;
-
 
 public class Store {
     public String store(Tree t) {

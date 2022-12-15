@@ -1,8 +1,5 @@
 package nl.tsmeets.todotree.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 public class Tree {
     public Node root;
     public Node yank;
