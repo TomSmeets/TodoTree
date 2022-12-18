@@ -22,7 +22,7 @@ public class NodeView implements TextWatcher, View.OnClickListener {
     private MainActivity ctx;
     private LinearLayout row;
     private TextView text;
-    private ImageButton checkbox;
+    private ImageView checkbox;
     private TextView count;
 
     public NodeView(MainActivity ctx, LinearLayout layout, Node node, int size, boolean editable, boolean is_parent) {
@@ -62,8 +62,9 @@ public class NodeView implements TextWatcher, View.OnClickListener {
         }
 
         if (true) {
-            this.checkbox = new ImageButton(ctx);
+            this.checkbox = new ImageView(ctx);
             checkbox.setBackground(null);
+            checkbox.setAdjustViewBounds(true);
             checkbox.setMaxWidth(size);
             checkbox.setMaxHeight(size);
             checkbox.setMinimumWidth(size);
@@ -88,8 +89,8 @@ public class NodeView implements TextWatcher, View.OnClickListener {
 
     public void update(Context ctx) {
         if (this.checkbox != null) {
-            if (node.state == 0) checkbox.setBackgroundResource(R.drawable.box_empty);
-            if (node.state == 1) checkbox.setBackgroundResource(R.drawable.box_done);
+            if (node.state == 0) checkbox.setImageResource(R.drawable.box_dark);
+            if (node.state == 1) checkbox.setImageResource(R.drawable.box_check_dark);
         }
 
         if (node.state == 0) text.setAlpha(1.0f);

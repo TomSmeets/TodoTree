@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background>
+        <color android:color="@color/color2"/>
+    </background>
     <foreground>
-        <inset android:inset="30dp">
-            <bitmap android:src="@drawable/box_done"/>
+        <inset android:inset="8dp">
+            <bitmap android:src="@drawable/logo_fg"/>
         </inset>
     </foreground>
 </adaptive-icon>
