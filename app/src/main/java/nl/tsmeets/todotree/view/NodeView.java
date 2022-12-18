@@ -70,6 +70,8 @@ public class NodeView implements TextWatcher, View.OnClickListener {
             checkbox.setMinimumWidth(size);
             checkbox.setMinimumHeight(size);
             checkbox.setOnClickListener(this);
+            checkbox.setScaleX(0.8f);
+            checkbox.setScaleY(0.8f);
             row.addView(checkbox);
         }
 
@@ -89,8 +91,8 @@ public class NodeView implements TextWatcher, View.OnClickListener {
 
     public void update(Context ctx) {
         if (this.checkbox != null) {
-            if (node.state == 0) checkbox.setImageResource(R.drawable.box_dark);
-            if (node.state == 1) checkbox.setImageResource(R.drawable.box_check_dark);
+            if (node.state == 0) checkbox.setBackgroundResource(R.drawable.box_empty_dark);
+            if (node.state == 1) checkbox.setBackgroundResource(R.drawable.box_check_dark);
         }
 
         if (node.state == 0) text.setAlpha(1.0f);
