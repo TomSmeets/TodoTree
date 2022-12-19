@@ -59,7 +59,7 @@ public class MainActivity extends Activity {
                     .setPositiveButton("Ok", (dialog, which) -> {
                         Node n = new Node();
                         n.text = text.getText().toString();
-                        tree.focus.append_node(n);
+                        tree.focus.prepend_node(n);
                         view_node();
                         saveData();
                     })
@@ -69,7 +69,6 @@ public class MainActivity extends Activity {
             text.requestFocus();
             d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
             d.show();
-
         });
 
         findViewById(R.id.main_list_button_del).setOnClickListener(l -> {

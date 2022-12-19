@@ -27,6 +27,6 @@ public class Tree {
         Node n = yank.child;
         if(n == null) return;
         n.detach();
-        parent.append_node(n);
+        parent.prepend_node(n);
     }
 }
