@@ -24,15 +24,15 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.70710678"
-     inkscape:cx="801.85909"
-     inkscape:cy="610.94026"
+     inkscape:zoom="4"
+     inkscape:cx="140"
+     inkscape:cy="425.25"
      inkscape:window-width="2560"
      inkscape:window-height="1365"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1" />
+     inkscape:current-layer="g6688-36" />
   <defs
      id="defs3004" />
   <g
@@ -118,6 +118,36 @@
          style="fill:none;stroke:#00ff00;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
          d="m 51.084889,128.08539 4.782816,4.99865 9.588981,-13.80746"
          id="path4807-2"
+         sodipodi:nodetypes="ccc"
+         inkscape:label="green-check" />
+    </g>
+    <g
+       id="g6688-36"
+       transform="translate(23.93559,-5.9673074)"
+       inkscape:label="logo-check-png"
+       inkscape:transform-center-x="0.5"
+       inkscape:transform-center-y="-0.5395"
+       inkscape:export-filename="../metadata/en-US/images/icon.png"
+       inkscape:export-xdpi="333.23389"
+       inkscape:export-ydpi="333.23389">
+      <circle
+         style="fill:#00106e;fill-opacity:1;stroke-width:3.6646;stroke-linejoin:round"
+         id="path6152"
+         cx="57.037724"
+         cy="127.55062"
+         r="19.51302" />
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+         id="rect3182-6-7"
+         width="20.047501"
+         height="20.047501"
+         x="46.81554"
+         y="117.46072"
+         inkscape:label="box-dark" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+         d="m 51.084889,128.08539 4.782816,4.99865 9.588981,-13.80746"
+         id="path4807-2-5"
          sodipodi:nodetypes="ccc"
          inkscape:label="green-check" />
     </g>
@@ -501,5 +531,12 @@
         </g>
       </g>
     </g>
+    <ellipse
+       style="fill:#00106e;fill-opacity:1;stroke-width:4;stroke-linejoin:round"
+       id="path6148"
+       cx="146.65613"
+       cy="111.99216"
+       rx="0.46302083"
+       ry="0.06614583" />
   </g>
 </svg>
