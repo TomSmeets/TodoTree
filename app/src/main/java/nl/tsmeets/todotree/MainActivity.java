@@ -32,7 +32,7 @@ public class MainActivity extends Activity {
     public Tree tree;
     public Store store;
 
-    private static int INTENT_CODE_EXPORT_CSV = 1;
+    private static final int INTENT_CODE_EXPORT_CSV = 1;
 
     private boolean node_is_below(Node child, Node parent) {
         if (child == null) return false;
