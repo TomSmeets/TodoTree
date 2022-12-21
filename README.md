@@ -1,5 +1,8 @@
 # TodoTree (Android App)
 
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/nl.tsmeets.todotree)
+[<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" height="80">](https://play.google.com/store/apps/details?id=nl.tsmeets.todotree)
+
 Keep your mind clear by quickly creating a nested tree of notes and tasks.
 
 Some example usages of this app are:
