@@ -78,6 +78,15 @@ public class Node {
         return count;
     }
 
+    public int child_todo_count() {
+        int count = 0;
+        for(Node child = this.child; child != null; child = child.next) {
+            if(child.state == 0)
+                count++;
+        }
+        return count;
+    }
+
     public int total_child_count() {
         int count = 0;
         for(Node child = this.child; child != null; child = child.next) {

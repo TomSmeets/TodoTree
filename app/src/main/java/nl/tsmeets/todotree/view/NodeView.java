@@ -19,10 +19,10 @@ import nl.tsmeets.todotree.model.Node;
 public class NodeView implements TextWatcher, View.OnClickListener {
     private final Node node;
 
-    private MainActivity ctx;
-    private LinearLayout row;
-    private TextView text;
-    private ImageView checkbox;
+    private final MainActivity ctx;
+    private final LinearLayout row;
+    private final TextView text;
+    private final ImageView checkbox;
     private TextView count;
 
     public NodeView(MainActivity ctx, LinearLayout layout, Node node, int size, boolean editable, boolean is_parent) {
