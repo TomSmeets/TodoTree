@@ -1,0 +1,1 @@
+Fix interface scalling for different display dpi values
