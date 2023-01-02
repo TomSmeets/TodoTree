@@ -147,7 +147,7 @@ public class MainActivity extends Activity {
         store = new Store();
 
         String data = Util.read_file_to_string(get_save_file());
-        if (data != null) tree = store.load(data);
+        if (data != null && !data.isEmpty()) tree = store.load(data);
 
         view_node(tree.root);
     }
@@ -157,7 +157,9 @@ public class MainActivity extends Activity {
     }
 
     public void saveData() {
-        Util.write_string_to_file(get_save_file(), new Store().store(tree));
+        File temp_save_file = new File(getFilesDir(), "data-new.csv");
+        Util.write_string_to_file(temp_save_file, new Store().store(tree));
+        assert temp_save_file.renameTo(get_save_file());
     }
 
     @Override
