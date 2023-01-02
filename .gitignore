@@ -1,8 +1,9 @@
 /.gradle
-/.idea
 /gradle
 /gradlew
 /gradlew.bat
 /local.properties
 /app/build
 /app/release
+/.idea/*.xml
+/.idea/.gitignore
