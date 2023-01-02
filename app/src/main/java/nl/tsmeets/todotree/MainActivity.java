@@ -189,9 +189,13 @@ public class MainActivity extends Activity {
         validate();
 
         LinearLayout list = findViewById(R.id.main_list);
+
+        // clear view
         list.removeAllViews();
 
-        int size = 130;
+        // calculate the display size based on the dpi
+        float dpi = getResources().getDisplayMetrics().scaledDensity;
+        int size = (int) (130.0f / 3.5 * dpi);
 
         for (Node n : node.parents())
             add_node(list, n, size, false, true);
