@@ -1,13 +1,16 @@
 package nl.tsmeets.todotree.view;
 
+import android.content.ClipData;
+import android.content.ClipDescription;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.TypedValue;
+import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,7 +19,7 @@ import nl.tsmeets.todotree.MainActivity;
 import nl.tsmeets.todotree.R;
 import nl.tsmeets.todotree.model.Node;
 
-public class NodeView implements TextWatcher, View.OnClickListener {
+public class NodeView implements TextWatcher, View.OnClickListener, View.OnDragListener, View.OnLongClickListener {
     private final Node node;
 
     private final MainActivity ctx;
@@ -40,6 +43,11 @@ public class NodeView implements TextWatcher, View.OnClickListener {
         } else {
             text = new TextView(ctx);
             text.setOnClickListener(this);
+        }
+
+        text.setOnDragListener(this);
+        if (!editable && !is_parent) {
+            text.setOnLongClickListener(this);
         }
 
         text.setPadding(20, 0, 0, 0);
@@ -127,4 +135,37 @@ public class NodeView implements TextWatcher, View.OnClickListener {
         }
     }
 
+    @Override
+    public boolean onDrag(View v, DragEvent event) {
+        if (event.getAction() == DragEvent.ACTION_DROP) {
+            Node drag = (Node) event.getLocalState();
+            if (drag == null) return false;
+            if (drag == node) {
+
+            } else if (drag.parent == node.parent) {
+                drag.detach();
+                node.insert_after_me(drag);
+            } else if (drag.parent == node) {
+                drag.detach();
+                node.prepend_node(drag);
+            }
+            ctx.view_node();
+            return true;
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        Log.d("TodoTree", "LONG " + node.text);
+        String tag = node.text;
+
+        row.setBackgroundColor(0xff006000);
+        View.DragShadowBuilder shadow = new View.DragShadowBuilder(row);
+        ClipData.Item item = new ClipData.Item(tag);
+        ClipData clip = new ClipData(tag, new String[]{ClipDescription.MIMETYPE_TEXT_PLAIN}, item);
+        v.startDragAndDrop(clip, shadow, node, View.DRAG_FLAG_OPAQUE);
+        return true;
+    }
 }

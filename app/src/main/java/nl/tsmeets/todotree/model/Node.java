@@ -70,6 +70,14 @@ public class Node {
         last.next = node;
     }
 
+    public void insert_after_me(Node node) {
+        assert node.parent == null;
+        assert node.next   == null;
+        node.next = this.next;
+        node.parent = this.parent;
+        this.next = node;
+    }
+
     public int child_count() {
         int count = 0;
         for(Node child = this.child; child != null; child = child.next) {
