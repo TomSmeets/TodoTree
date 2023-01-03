@@ -161,6 +161,8 @@ public class NodeView implements TextWatcher, View.OnClickListener, View.OnDragL
         Log.d("TodoTree", "LONG " + node.text);
         String tag = node.text;
 
+        // NOTE: there is still a bug, if we drag outside the window
+        // the node stays green
         row.setBackgroundColor(0xff006000);
         View.DragShadowBuilder shadow = new View.DragShadowBuilder(row);
         ClipData.Item item = new ClipData.Item(tag);
