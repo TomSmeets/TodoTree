@@ -159,7 +159,7 @@ public class MainActivity extends Activity {
     public void saveData() {
         File temp_save_file = new File(getFilesDir(), "data-new.csv");
         Util.write_string_to_file(temp_save_file, new Store().store(tree));
-        assert temp_save_file.renameTo(get_save_file());
+        temp_save_file.renameTo(get_save_file());
     }
 
     @Override
