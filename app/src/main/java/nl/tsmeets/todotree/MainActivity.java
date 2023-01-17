@@ -73,6 +73,10 @@ public class MainActivity extends Activity {
                 .setNegativeButton(R.string.cancel_option, null)
                 .create();
 
+        // prevent pressing outside the dialog from dismissing
+        // only the cancel button should do this
+        d.setCancelable(false);
+
         // try to get they keyboard to show, with focus
         text.requestFocus();
         d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
