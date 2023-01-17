@@ -3,7 +3,7 @@
 
     <application
         android:icon="@drawable/icon"
-        android:label="TodoTree"
+        android:label="@string/app_name"
         android:theme="@style/Theme.TodoTree">
         <activity
             android:name=".MainActivity"

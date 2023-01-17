@@ -52,18 +52,18 @@ public class MainActivity extends Activity {
 
         findViewById(R.id.main_list_button_add).setOnClickListener(l -> {
             final EditText text = new EditText(this);
-            text.setHint("text");
+            text.setHint(R.string.text_hint);
             AlertDialog d = new AlertDialog.Builder(this)
-                    .setTitle("Node Text")
+                    .setTitle(R.string.add_title)
                     .setView(text)
-                    .setPositiveButton("Ok", (dialog, which) -> {
+                    .setPositiveButton(R.string.ok_option, (dialog, which) -> {
                         Node n = new Node();
                         n.text = text.getText().toString();
                         tree.focus.prepend_node(n);
                         view_node();
                         saveData();
                     })
-                    .setNegativeButton("Cancel", (dialog, which) -> {
+                    .setNegativeButton(R.string.cancel_option, (dialog, which) -> {
                     })
                     .create();
             text.requestFocus();
@@ -85,11 +85,11 @@ public class MainActivity extends Activity {
 
                 if (child_count > 0) {
                     new AlertDialog.Builder(this)
-                            .setTitle("Confirm")
-                            .setMessage("Are you sure you want to remove this node with " + child_count + " children ?")
+                            .setTitle(R.string.confirm)
+                            .setMessage(getString(R.string.remove_confirm, child_count))
                             .setIcon(android.R.drawable.ic_dialog_alert)
-                            .setPositiveButton("Yes", (dialog, which) -> action.run())
-                            .setNegativeButton("No", null)
+                            .setPositiveButton(R.string.yes_option, (dialog, which) -> action.run())
+                            .setNegativeButton(R.string.no_option, null)
                             .show();
                 } else {
                     action.run();
@@ -117,7 +117,7 @@ public class MainActivity extends Activity {
         findViewById(R.id.main_list_button_more).setOnClickListener(v -> {
             SimplePopupMenu menu = new SimplePopupMenu(this, v);
 
-            menu.add("Export Data", () -> {
+            menu.add(getString(R.string.export_menu_item), () -> {
                 SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
                 Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -126,18 +126,18 @@ public class MainActivity extends Activity {
                 startActivityForResult(intent, INTENT_CODE_EXPORT_CSV);
             });
 
-            menu.add("Remove Done", () -> {
+            menu.add(getString(R.string.remove_menu_item), () -> {
                 new AlertDialog.Builder(this)
-                        .setTitle("Confirm")
-                        .setMessage("Do you want to remove all DONE nodes?")
+                        .setTitle(R.string.confirm)
+                        .setMessage(R.string.remove_done_confirm)
                         .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setPositiveButton("Yes", (dialog, which) -> {
+                        .setPositiveButton(R.string.yes_option, (dialog, which) -> {
                             for (Node n : tree.focus.children()) {
                                 if (n.state == 1) n.detach();
                             }
                             view_node();
                         })
-                        .setNegativeButton("No", null)
+                        .setNegativeButton(R.string.no_option, null)
                         .show();
             });
             menu.show();
@@ -164,20 +164,20 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onPause() {
-        Log.d("TodoTree", "PAUSE");
+        Log.d(getString(R.string.app_name), "PAUSE");
         super.onPause();
     }
 
     @Override
     protected void onStop() {
-        Log.d("TodoTree", "STOP");
+        Log.d(getString(R.string.app_name), "STOP");
         saveData();
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
-        Log.d("TodoTree", "DESTROY");
+        Log.d(getString(R.string.app_name), "DESTROY");
         saveData();
         super.onDestroy();
     }
@@ -210,9 +210,9 @@ public class MainActivity extends Activity {
         int yank_count = tree.yank.child_count();
         Button paste_button = findViewById(R.id.main_list_button_paste);
         if (yank_count > 0) {
-            paste_button.setText("Place (" + tree.yank.child_count() + ")");
+            paste_button.setText(getString(R.string.place_quantity_button, tree.yank.child_count()));
         } else {
-            paste_button.setText("Place");
+            paste_button.setText(R.string.place_button);
         }
     }
 
@@ -230,7 +230,7 @@ public class MainActivity extends Activity {
                 output.flush();
                 output.close();
             } catch (IOException e) {
-                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.error), Toast.LENGTH_SHORT).show();
             }
             return;
         }
