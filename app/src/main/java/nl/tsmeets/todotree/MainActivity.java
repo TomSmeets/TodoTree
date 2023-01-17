@@ -45,31 +45,47 @@ public class MainActivity extends Activity {
         assert node_is_below(tree.focus, tree.root);
     }
 
+    public void insert_node_with_text(String text) {
+        Node n = new Node();
+        n.text = text;
+        tree.focus.prepend_node(n);
+        view_node();
+        saveData();
+    }
+
+    // Show the 'add node' dialog for the currently focused node
+    public void show_insert_dialog() {
+        final EditText text = new EditText(this);
+        text.setHint(R.string.text_hint);
+        AlertDialog d = new AlertDialog.Builder(this)
+                .setTitle(R.string.add_title)
+                .setView(text)
+                // "ok" inserts a single item
+                .setPositiveButton(R.string.ok_option, (dialog, which) -> {
+                    insert_node_with_text(text.getText().toString());
+                })
+
+                // "next" inserts the item and continues to the next item
+                .setNeutralButton("next", (dialog, which) -> {
+                    insert_node_with_text(text.getText().toString());
+                    show_insert_dialog();
+                })
+                .setNegativeButton(R.string.cancel_option, null)
+                .create();
+
+        // try to get they keyboard to show, with focus
+        text.requestFocus();
+        d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+        d.show();
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findViewById(R.id.main_list_button_add).setOnClickListener(l -> {
-            final EditText text = new EditText(this);
-            text.setHint(R.string.text_hint);
-            AlertDialog d = new AlertDialog.Builder(this)
-                    .setTitle(R.string.add_title)
-                    .setView(text)
-                    .setPositiveButton(R.string.ok_option, (dialog, which) -> {
-                        Node n = new Node();
-                        n.text = text.getText().toString();
-                        tree.focus.prepend_node(n);
-                        view_node();
-                        saveData();
-                    })
-                    .setNegativeButton(R.string.cancel_option, (dialog, which) -> {
-                    })
-                    .create();
-            text.requestFocus();
-            d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-            d.show();
-        });
+        findViewById(R.id.main_list_button_add).setOnClickListener(l -> show_insert_dialog());
 
         findViewById(R.id.main_list_button_del).setOnClickListener(l -> {
             Node node = tree.focus;
