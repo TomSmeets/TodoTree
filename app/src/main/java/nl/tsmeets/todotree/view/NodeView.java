@@ -123,10 +123,14 @@ public class NodeView implements TextWatcher, View.OnClickListener, View.OnDragL
 
     @Override
     public void onClick(View v) {
+
         if (v == checkbox) {
             node.state = (node.state + 1) % 2;
             node.mtime = System.currentTimeMillis();
-            update(ctx);
+            node.update_parents_states();
+            node.update_children_states();
+
+            ctx.view_node();
             ctx.saveData();
         }
 
