@@ -49,6 +49,7 @@ public class MainActivity extends Activity {
         Node n = new Node();
         n.text = text;
         tree.focus.prepend_node(n);
+        n.update_parents_states();
         view_node();
         saveData();
     }
@@ -99,6 +100,7 @@ public class MainActivity extends Activity {
                 Runnable action = () -> {
                     Node parent = node.parent;
                     node.detach();
+                    parent.child.update_parents_states();
                     view_node(parent);
                     saveData();
                 };
@@ -122,6 +124,7 @@ public class MainActivity extends Activity {
                 Node n = tree.focus;
                 tree.focus = n.parent;
                 tree.yank(n);
+                tree.focus.child.update_parents_states();
                 view_node();
                 saveData();
             }
@@ -130,6 +133,7 @@ public class MainActivity extends Activity {
 
         findViewById(R.id.main_list_button_paste).setOnClickListener(l -> {
             tree.paste();
+            tree.focus.child.update_parents_states();
             view_node();
             saveData();
         });
@@ -155,6 +159,8 @@ public class MainActivity extends Activity {
                             for (Node n : tree.focus.children()) {
                                 if (n.state == 1) n.detach();
                             }
+                            // when you remove done nodes you most likely want to reuse subtree
+                            tree.focus.state = 0;
                             view_node();
                         })
                         .setNegativeButton(R.string.no_option, null)

@@ -120,4 +120,33 @@ public class Node {
         }
         return l;
     }
+
+    public void update_children_states() {
+        Node current;
+
+        for (current = this; current != null; current = current.next) {
+            for (Node c : current.children()) {
+                c.state = this.state;
+                c.update_children_states();
+            }
+        }
+    }
+
+    public void update_parents_states(){
+        Node current;
+
+        for (current = this; current.parent != null; current = current.parent) {
+            boolean subtree_done = true;
+            for (Node c : current.parent.children()) {
+                if (c.state == 0) {
+                    subtree_done = false;
+                    break;
+                }
+            }
+            if (subtree_done)
+                current.parent.state = 1;
+            else
+                current.parent.state = 0;
+        }
+    }
 }
