@@ -21,5 +21,7 @@
 
     <!-- TODO: Translate to Itallian -->
     <string name="settings_menu_item">Settings</string>
-    <string name="import_menu_item">Import Data</string>
+    <string name="import_menu_item">Import data</string>
+    <string name="setting_scale">Interface scale</string>
+    <string name="setting_insert_top">Insert nodes on top</string>
 </resources>

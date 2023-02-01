@@ -6,19 +6,22 @@
     <string name="remove_button">Remove</string>
     <string name="grab_button">Grab</string>
     <string name="insert_button">Insert</string>
-    <string name="export_menu_item">Export Data</string>
-    <string name="remove_menu_item">Remove Done</string>
+    <string name="export_menu_item">Export data</string>
+    <string name="remove_menu_item">Remove done</string>
     <string name="confirm">Confirm</string>
-    <string name="ok_option">@android:string/ok</string>
+    <string name="ok_option">Ok</string>
     <string name="cancel_option">Cancel</string>
     <string name="yes_option">Yes</string>
     <string name="no_option">No</string>
-    <string name="add_title">Node Text</string>
+    <string name="add_title">Node text</string>
     <string name="remove_done_confirm">Do you want to remove all DONE nodes?</string>
     <string name="text_hint">text</string>
     <string name="remove_confirm">Are you sure you want to remove this node with %1$d children?</string>
     <string name="app_name" translatable="false">TodoTree</string>
     <string name="error">Error</string>
+
     <string name="settings_menu_item">Settings</string>
-    <string name="import_menu_item">Import Data</string>
+    <string name="import_menu_item">Import data</string>
+    <string name="setting_scale">Interface scale</string>
+    <string name="setting_insert_top">Insert nodes on top</string>
 </resources>

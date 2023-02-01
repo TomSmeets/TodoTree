@@ -18,6 +18,9 @@
     <string name="text_hint">Tekst</string>
     <string name="remove_confirm">Weet je zeker dat je dit item en de %1$d sub-items wil verwijderen?</string>
     <string name="error">Er ging iets mis</string>
+
     <string name="settings_menu_item">Instellingen</string>
     <string name="import_menu_item">Importeer data</string>
+    <string name="setting_scale">Interface grootte</string>
+    <string name="setting_insert_top">Zet nieuwe items bovenaan</string>
 </resources>
