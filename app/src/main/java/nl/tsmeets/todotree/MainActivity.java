@@ -71,7 +71,7 @@ public class MainActivity extends Activity {
                 })
 
                 // "next" inserts the item and continues to the next item
-                .setNeutralButton("next", (dialog, which) -> {
+                .setNeutralButton(R.string.dialog_next, (dialog, which) -> {
                     insert_node_with_text(text.getText().toString());
                     show_insert_dialog();
                 })

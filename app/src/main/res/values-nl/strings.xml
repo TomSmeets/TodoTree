@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="button_insert">Nieuw</string>
-    <string name="button_remove">Verwijderen</string>
+    <string name="button_remove">Verwijder</string>
     <string name="button_remove_confirm">Weet je zeker dat je dit item en de %1$d sub-items wil verwijderen?</string>
     <string name="button_grab">Knippen</string>
     <string name="button_place">Plakken</string>
-    <string name="button_place_quantity">Plakken (%1$d)</string>
+    <string name="button_place_quantity">Plak (%1$d)</string>
     <string name="button_more">Meer</string>
 
     <string name="dialog_confirmation">Weet je het zeker?</string>
@@ -13,6 +13,7 @@
     <string name="dialog_no">Nee</string>
     <string name="dialog_ok">Oké</string>
     <string name="dialog_cancel">Annuleren</string>
+    <string name="dialog_next">Volgende</string>
     <string name="dialog_error">Er ging iets mis</string>
 
     <string name="insert_hint">Tekst</string>
