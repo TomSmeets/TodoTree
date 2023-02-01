@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/black"
-            android:text="@string/more_button" />
+            android:text="@string/button_more" />
 
         <Button
             android:id="@+id/main_list_button_del"
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/black"
-            android:text="@string/remove_button" />
+            android:text="@string/button_remove" />
 
         <Button
             android:id="@+id/main_list_button_yank"
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/black"
-            android:text="@string/grab_button" />
+            android:text="@string/button_grab" />
 
         <Button
             android:id="@+id/main_list_button_paste"
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/black"
-            android:text="@string/place_button" />
+            android:text="@string/button_place" />
 
         <Button
             android:id="@+id/main_list_button_add"
@@ -62,6 +62,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/black"
-            android:text="@string/insert_button"/>
+            android:text="@string/button_insert"/>
     </LinearLayout>
 </LinearLayout>

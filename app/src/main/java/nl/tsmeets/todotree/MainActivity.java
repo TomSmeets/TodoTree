@@ -61,12 +61,12 @@ public class MainActivity extends Activity {
     // Show the 'add node' dialog for the currently focused node
     public void show_insert_dialog() {
         final EditText text = new EditText(this);
-        text.setHint(R.string.text_hint);
+        text.setHint(R.string.insert_hint);
         AlertDialog d = new AlertDialog.Builder(this)
-                .setTitle(R.string.add_title)
+                .setTitle(R.string.insert_title)
                 .setView(text)
                 // "ok" inserts a single item
-                .setPositiveButton(R.string.ok_option, (dialog, which) -> {
+                .setPositiveButton(R.string.dialog_ok, (dialog, which) -> {
                     insert_node_with_text(text.getText().toString());
                 })
 
@@ -75,7 +75,7 @@ public class MainActivity extends Activity {
                     insert_node_with_text(text.getText().toString());
                     show_insert_dialog();
                 })
-                .setNegativeButton(R.string.cancel_option, null)
+                .setNegativeButton(R.string.dialog_cancel, null)
                 .create();
 
         // prevent pressing outside the dialog from dismissing
@@ -110,11 +110,11 @@ public class MainActivity extends Activity {
 
                 if (child_count > 0) {
                     new AlertDialog.Builder(this)
-                            .setTitle(R.string.confirm)
-                            .setMessage(getString(R.string.remove_confirm, child_count))
+                            .setTitle(R.string.dialog_confirmation)
+                            .setMessage(getString(R.string.button_remove_confirm, child_count))
                             .setIcon(android.R.drawable.ic_dialog_alert)
-                            .setPositiveButton(R.string.yes_option, (dialog, which) -> action.run())
-                            .setNegativeButton(R.string.no_option, null)
+                            .setPositiveButton(R.string.dialog_yes, (dialog, which) -> action.run())
+                            .setNegativeButton(R.string.dialog_no, null)
                             .show();
                 } else {
                     action.run();
@@ -142,12 +142,12 @@ public class MainActivity extends Activity {
         findViewById(R.id.main_list_button_more).setOnClickListener(v -> {
             SimplePopupMenu menu = new SimplePopupMenu(this, v);
 
-            menu.add(getString(R.string.settings_menu_item), () -> {
+            menu.add(getString(R.string.menu_settings), () -> {
                 // TODO
                 Toast.makeText(this, "Sorry, this is not implemented yet :(", Toast.LENGTH_LONG).show();
             });
 
-            menu.add(getString(R.string.export_menu_item), () -> {
+            menu.add(getString(R.string.menu_export), () -> {
                 SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
                 Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -156,23 +156,23 @@ public class MainActivity extends Activity {
                 startActivityForResult(intent, INTENT_CODE_EXPORT_CSV);
             });
 
-            menu.add(getString(R.string.import_menu_item), () -> {
+            menu.add(getString(R.string.menu_import), () -> {
                 // TODO
                 Toast.makeText(this, "Sorry, this is not implemented yet :(", Toast.LENGTH_LONG).show();
             });
 
-            menu.add(getString(R.string.remove_menu_item), () -> {
+            menu.add(getString(R.string.menu_remove_done), () -> {
                 new AlertDialog.Builder(this)
-                        .setTitle(R.string.confirm)
-                        .setMessage(R.string.remove_done_confirm)
+                        .setTitle(R.string.dialog_confirmation)
+                        .setMessage(R.string.menu_remove_done_confirm)
                         .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setPositiveButton(R.string.yes_option, (dialog, which) -> {
+                        .setPositiveButton(R.string.dialog_yes, (dialog, which) -> {
                             for (Node n : tree.focus.children()) {
                                 if (n.state == 1) n.detach();
                             }
                             view_node();
                         })
-                        .setNegativeButton(R.string.no_option, null)
+                        .setNegativeButton(R.string.dialog_no, null)
                         .show();
             });
             menu.show();
@@ -245,9 +245,9 @@ public class MainActivity extends Activity {
         int yank_count = tree.yank.child_count();
         Button paste_button = findViewById(R.id.main_list_button_paste);
         if (yank_count > 0) {
-            paste_button.setText(getString(R.string.place_quantity_button, tree.yank.child_count()));
+            paste_button.setText(getString(R.string.button_place_quantity, tree.yank.child_count()));
         } else {
-            paste_button.setText(R.string.place_button);
+            paste_button.setText(R.string.button_place);
         }
     }
 
@@ -265,7 +265,7 @@ public class MainActivity extends Activity {
                 output.flush();
                 output.close();
             } catch (IOException e) {
-                Toast.makeText(this, getString(R.string.error), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.dialog_error), Toast.LENGTH_SHORT).show();
             }
             return;
         }

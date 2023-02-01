@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="place_button">Plakken</string>
-    <string name="place_quantity_button">Plakken (%1$d)</string>
-    <string name="more_button">Meer</string>
-    <string name="remove_button">Verwijderen</string>
-    <string name="grab_button">Knippen</string>
-    <string name="insert_button">Nieuw</string>
-    <string name="export_menu_item">Exporteer data</string>
-    <string name="remove_menu_item">Verwijder afgevinkte items</string>
-    <string name="confirm">Weet je het zeker?</string>
-    <string name="ok_option">Oké</string>
-    <string name="cancel_option">Annuleren</string>
-    <string name="yes_option">Ja</string>
-    <string name="no_option">Nee</string>
-    <string name="add_title">Item titel</string>
-    <string name="remove_done_confirm">Weet je zeker dat je alle AFGEVINKTE items wil verwijderen?</string>
-    <string name="text_hint">Tekst</string>
-    <string name="remove_confirm">Weet je zeker dat je dit item en de %1$d sub-items wil verwijderen?</string>
-    <string name="error">Er ging iets mis</string>
+    <string name="button_insert">Nieuw</string>
+    <string name="button_remove">Verwijderen</string>
+    <string name="button_remove_confirm">Weet je zeker dat je dit item en de %1$d sub-items wil verwijderen?</string>
+    <string name="button_grab">Knippen</string>
+    <string name="button_place">Plakken</string>
+    <string name="button_place_quantity">Plakken (%1$d)</string>
+    <string name="button_more">Meer</string>
 
-    <string name="settings_menu_item">Instellingen</string>
-    <string name="import_menu_item">Importeer data</string>
-    <string name="setting_scale">Interface grootte</string>
+    <string name="dialog_confirmation">Weet je het zeker?</string>
+    <string name="dialog_yes">Ja</string>
+    <string name="dialog_no">Nee</string>
+    <string name="dialog_ok">Oké</string>
+    <string name="dialog_cancel">Annuleren</string>
+    <string name="dialog_error">Er ging iets mis</string>
+
+    <string name="insert_hint">Tekst</string>
+    <string name="insert_title">Item titel</string>
+
+    <string name="menu_settings">Instellingen</string>
+    <string name="menu_export">Exporteer data</string>
+    <string name="menu_import">Importeer data</string>
+    <string name="menu_remove_done">Verwijder afgevinkte items</string>
+    <string name="menu_remove_done_confirm">Weet je zeker dat je alle AFGEVINKTE items wil verwijderen?</string>
+
     <string name="setting_insert_top">Zet nieuwe items bovenaan</string>
+    <string name="setting_scale">Interface grootte</string>
 </resources>
