@@ -142,6 +142,11 @@ public class MainActivity extends Activity {
         findViewById(R.id.main_list_button_more).setOnClickListener(v -> {
             SimplePopupMenu menu = new SimplePopupMenu(this, v);
 
+            menu.add(getString(R.string.settings_menu_item), () -> {
+                // TODO
+                Toast.makeText(this, "Sorry, this is not implemented yet :(", Toast.LENGTH_LONG).show();
+            });
+
             menu.add(getString(R.string.export_menu_item), () -> {
                 SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
                 Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
@@ -149,6 +154,11 @@ public class MainActivity extends Activity {
                 intent.setType("text/csv");
                 intent.putExtra(Intent.EXTRA_TITLE, "TodoTree-data-" + f.format(new Date()) + ".csv");
                 startActivityForResult(intent, INTENT_CODE_EXPORT_CSV);
+            });
+
+            menu.add(getString(R.string.import_menu_item), () -> {
+                // TODO
+                Toast.makeText(this, "Sorry, this is not implemented yet :(", Toast.LENGTH_LONG).show();
             });
 
             menu.add(getString(R.string.remove_menu_item), () -> {

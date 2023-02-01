@@ -19,4 +19,6 @@
     <string name="remove_confirm">Are you sure you want to remove this node with %1$d children?</string>
     <string name="app_name" translatable="false">TodoTree</string>
     <string name="error">Error</string>
+    <string name="settings_menu_item">Settings</string>
+    <string name="import_menu_item">Import Data</string>
 </resources>
