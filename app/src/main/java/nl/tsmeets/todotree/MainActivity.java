@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import nl.tsmeets.todotree.model.Node;
+import nl.tsmeets.todotree.model.Settings;
 import nl.tsmeets.todotree.model.Tree;
 import nl.tsmeets.todotree.store.Store;
 import nl.tsmeets.todotree.store.Util;
@@ -31,7 +32,7 @@ import nl.tsmeets.todotree.view.SimplePopupMenu;
 public class MainActivity extends Activity {
     public Tree tree;
     public Store store;
-
+    public Settings settings = new Settings();
     private static final int INTENT_CODE_EXPORT_CSV = 1;
 
     private boolean node_is_below(Node child, Node parent) {
@@ -48,7 +49,11 @@ public class MainActivity extends Activity {
     public void insert_node_with_text(String text) {
         Node n = new Node();
         n.text = text;
-        tree.focus.prepend_node(n);
+        if(settings.insert_top) {
+            tree.focus.prepend_node(n);
+        } else {
+            tree.focus.append_node(n);
+        }
         view_node();
         saveData();
     }
@@ -129,7 +134,7 @@ public class MainActivity extends Activity {
 
 
         findViewById(R.id.main_list_button_paste).setOnClickListener(l -> {
-            tree.paste();
+            tree.paste(settings);
             view_node();
             saveData();
         });
@@ -217,7 +222,7 @@ public class MainActivity extends Activity {
 
         // calculate the display size based on the dpi
         float dpi = getResources().getDisplayMetrics().scaledDensity;
-        int size = (int) (130.0f / 3.5 * dpi);
+        int size = (int) (115.0f / 3.5 * dpi * settings.scale);
 
         for (Node n : node.parents())
             add_node(list, n, size, false, true);

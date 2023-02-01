@@ -21,12 +21,16 @@ public class Tree {
         yank.prepend_node(n);
     }
 
-    public void paste() { paste(this.focus); }
+    public void paste(Settings settings) { paste(this.focus, settings); }
 
-    public void paste(Node parent) {
+    public void paste(Node parent, Settings settings) {
         Node n = yank.child;
         if(n == null) return;
         n.detach();
-        parent.prepend_node(n);
+        if(settings.insert_top) {
+            parent.prepend_node(n);
+        } else {
+            parent.append_node(n);
+        }
     }
 }
