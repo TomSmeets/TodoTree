@@ -18,4 +18,8 @@
     <string name="text_hint">testo</string>
     <string name="remove_confirm">Sei sicuro di voler rimuovere questo nodo con %1$d figli?</string>
     <string name="error">Errore</string>
+
+    <!-- TODO: Translate to Itallian -->
+    <string name="settings_menu_item">Settings</string>
+    <string name="import_menu_item">Import Data</string>
 </resources>
