@@ -183,7 +183,7 @@ public class MainActivity extends Activity {
 
         String data = Util.read_file_to_string(get_save_file());
         if (data != null && !data.isEmpty()) tree = store.load(data);
-
+        loadData();
         view_node(tree.root);
     }
 
@@ -191,10 +191,16 @@ public class MainActivity extends Activity {
         return new File(getFilesDir(), "data.csv");
     }
 
+    public File get_save_file(String name) { return new File(getFilesDir(), name); }
+
     public void saveData() {
-        File temp_save_file = new File(getFilesDir(), "data-new.csv");
-        Util.write_string_to_file(temp_save_file, new Store().store(tree));
-        temp_save_file.renameTo(get_save_file());
+        tree.save(get_save_file("data_tree.csv"));
+        settings.save(new File(getFilesDir(), "data_settings.csv"));
+    }
+
+    public void loadData() {
+        tree.load(get_save_file("data_tree.csv"));
+        settings.load(new File(getFilesDir(), "data_settings.csv"));
     }
 
     @Override
@@ -232,7 +238,7 @@ public class MainActivity extends Activity {
 
         // calculate the display size based on the dpi
         float dpi = getResources().getDisplayMetrics().scaledDensity;
-        int size = (int) (115.0f / 3.5 * dpi * settings.scale);
+        int size = (int) (115.0f / 3.5 * dpi * settings.ui_scale);
 
         for (Node n : node.parents())
             add_node(list, n, size, false, true);
