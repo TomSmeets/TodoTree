@@ -21,8 +21,6 @@ public class CSVFileFormat {
     // Escape the string, making sure there are no ';' or '\n' present
     // to reverse use csv_string_read
     public static class Header {
-       public String type;
-       public int version;
        public String[] header;
     };
 
@@ -39,24 +37,16 @@ public class CSVFileFormat {
     private File file;
 
     // writing
-    public void write_begin(File file, Header hdr) {
+    public void write_begin(File file, String... hdr) {
         assert this.is_writing == false;
         assert this.is_reading == false;
         this.is_writing = true;
         this.out = new StringBuilder();
         this.file = file;
-
-        assert !hdr.type.isEmpty();
-        assert hdr.header.length > 0;
-        assert hdr.version > 0;
-
-        // format data
-        write_value(hdr.type);
-        write_value(hdr.version);
-        write_next();
+        assert hdr.length > 0;
 
         // header
-        for(String s : hdr.header)
+        for(String s : hdr)
             write_value(s);
 
         // done
@@ -119,25 +109,20 @@ public class CSVFileFormat {
 
 
     // Reading
-    public Header read_begin(File f) {
+    public String[] read_begin(File f) {
         assert is_reading == false;
         assert is_writing == false;
         String s = Util.read_file_to_string(f);
+        if(s == null) return null;
         this.lines = s.split("\n");
         this.words = null;
         this.word_ix = 0;
         this.line_ix = 0;
 
         if(!read_next()) return null;
-        Header hdr = new Header();
-        hdr.type    = read_string();
-        hdr.version = read_int();
-        if(!read_next()) return null;
-
-        hdr.header = new String[words.length];
-        for (int i = 0; i < words.length; i++) {
-            hdr.header[i] = read_string();
-        }
+        String[] hdr = new String[words.length];
+        for (int i = 0; i < words.length; i++)
+            hdr[i] = read_string();
         read_next();
         return hdr;
     }

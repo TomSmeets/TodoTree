@@ -18,11 +18,7 @@ public class Settings {
     public void save(File file) {
         CSVFileFormat f = new CSVFileFormat();
 
-        Header hdr = new Header();
-        hdr.version = 1;
-        hdr.type = "settings";
-        hdr.header = new String[]{ "key", "value" };
-        f.write_begin(file, hdr);
+        f.write_begin(file,  "key", "value");
 
         f.write_value("insert_top");
         f.write_value(insert_top);
@@ -41,13 +37,12 @@ public class Settings {
 
     public void load(File file) {
         CSVFileFormat f = new CSVFileFormat();
-        Header hdr = f.read_begin(file);
+        String[] hdr = f.read_begin(file);
+        if(hdr == null) return;
 
-        assert hdr.type.equals("settings");
-        assert hdr.version == 1;
-        assert hdr.header.length == 2;
-        assert hdr.header[0].equals("key");
-        assert hdr.header[1].equals("value");
+        assert hdr.length == 2;
+        assert hdr[0].equals("key");
+        assert hdr[1].equals("value");
 
         for(;;) {
             String key = f.read_string();

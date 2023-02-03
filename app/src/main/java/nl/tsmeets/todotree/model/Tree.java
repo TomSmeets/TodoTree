@@ -46,13 +46,8 @@ public class Tree {
 
     public void save(File file) {
         CSVFileFormat f = new CSVFileFormat();
-        Header hdr = new Header();
-        hdr.type    = "tree";
-        hdr.version = 2;
-        hdr.header = new String[]{"id", "child", "next", "text", "state"};
-        f.write_begin(file, hdr);
+        f.write_begin(file, "id", "child", "next", "text", "state");
         save_id_counter = 0;
-
         root.next = yank;
         yank.next = null;
         save_impl(f, root);
@@ -76,10 +71,8 @@ public class Tree {
 
     public void load(File file) {
         CSVFileFormat f = new CSVFileFormat();
-        Header hdr = f.read_begin(file);
-        assert hdr.type.equals("tree");
-        assert hdr.version == 2;
-        assert hdr.header.length == 5;
+        String[] hdr = f.read_begin(file);
+        assert hdr.length == 5;
 
         List<Node> nodes = new ArrayList<>();
 

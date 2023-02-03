@@ -180,26 +180,19 @@ public class MainActivity extends Activity {
 
         tree = new Tree();
         store = new Store();
-
-        String data = Util.read_file_to_string(get_save_file());
-        if (data != null && !data.isEmpty()) tree = store.load(data);
         loadData();
         view_node(tree.root);
-    }
-
-    public File get_save_file() {
-        return new File(getFilesDir(), "data.csv");
     }
 
     public File get_save_file(String name) { return new File(getFilesDir(), name); }
 
     public void saveData() {
-        tree.save(get_save_file("data_tree.csv"));
+        tree.save(get_save_file("data.csv"));
         settings.save(new File(getFilesDir(), "data_settings.csv"));
     }
 
     public void loadData() {
-        tree.load(get_save_file("data_tree.csv"));
+        tree.load(get_save_file("data.csv"));
         settings.load(new File(getFilesDir(), "data_settings.csv"));
     }
 
