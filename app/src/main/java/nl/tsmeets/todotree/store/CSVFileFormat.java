@@ -4,12 +4,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CSVFileFormat {
     // FILE FORMAT:
-    //   type; version
     //   hdr1; hdr2; hdr3;
     //   val1; val2; val3;
     //   val4; val5; val6;
@@ -20,9 +17,6 @@ public class CSVFileFormat {
 
     // Escape the string, making sure there are no ';' or '\n' present
     // to reverse use csv_string_read
-    public static class Header {
-       public String[] header;
-    };
 
     private boolean is_reading = false;
     private boolean is_writing = false;

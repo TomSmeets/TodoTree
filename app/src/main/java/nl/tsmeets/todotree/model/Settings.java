@@ -3,7 +3,6 @@ package nl.tsmeets.todotree.model;
 import java.io.File;
 
 import nl.tsmeets.todotree.store.CSVFileFormat;
-import nl.tsmeets.todotree.store.CSVFileFormat.Header;
 
 public class Settings {
     // "Insert nodes on top"

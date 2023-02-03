@@ -25,7 +25,6 @@ import java.util.Locale;
 import nl.tsmeets.todotree.model.Node;
 import nl.tsmeets.todotree.model.Settings;
 import nl.tsmeets.todotree.model.Tree;
-import nl.tsmeets.todotree.store.Util;
 import nl.tsmeets.todotree.view.NodeView;
 import nl.tsmeets.todotree.view.SimplePopupMenu;
 

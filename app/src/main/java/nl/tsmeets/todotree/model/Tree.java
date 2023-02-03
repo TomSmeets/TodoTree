@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nl.tsmeets.todotree.store.CSVFileFormat;
-import nl.tsmeets.todotree.store.CSVFileFormat.Header;
-import nl.tsmeets.todotree.store.Util;
 
 public class Tree {
     public Node root;
