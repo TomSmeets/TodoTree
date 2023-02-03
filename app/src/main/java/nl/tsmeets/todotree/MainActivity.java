@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
@@ -24,14 +25,12 @@ import java.util.Locale;
 import nl.tsmeets.todotree.model.Node;
 import nl.tsmeets.todotree.model.Settings;
 import nl.tsmeets.todotree.model.Tree;
-import nl.tsmeets.todotree.store.Store;
 import nl.tsmeets.todotree.store.Util;
 import nl.tsmeets.todotree.view.NodeView;
 import nl.tsmeets.todotree.view.SimplePopupMenu;
 
 public class MainActivity extends Activity {
     public Tree tree;
-    public Store store;
     public Settings settings = new Settings();
     private static final int INTENT_CODE_EXPORT_CSV = 1;
 
@@ -179,7 +178,6 @@ public class MainActivity extends Activity {
         });
 
         tree = new Tree();
-        store = new Store();
         loadData();
         view_node(tree.root);
     }
@@ -258,11 +256,18 @@ public class MainActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == INTENT_CODE_EXPORT_CSV && resultCode == RESULT_OK) {
+            saveData();
             Uri uri = data.getData();
             try {
+                File f = get_save_file("data.csv");
+                byte[] buffer = new byte[(int) f.length()];
+
+                FileInputStream input = new FileInputStream(f);
+                input.read(buffer);
+                input.close();
+
                 OutputStream output = getContentResolver().openOutputStream(uri);
-                output.write(store.store(tree).getBytes());
-                output.flush();
+                output.write(buffer);
                 output.close();
             } catch (IOException e) {
                 Toast.makeText(this, getString(R.string.dialog_error), Toast.LENGTH_SHORT).show();
