@@ -188,17 +188,18 @@ public class MainActivity extends Activity {
 
     public void saveData() {
         tree.save(get_save_file("data.csv"));
-        settings.save(new File(getFilesDir(), "data_settings.csv"));
+        settings.save(get_save_file("data_settings.csv"));
     }
 
     public void loadData() {
         tree.load(get_save_file("data.csv"));
-        settings.load(new File(getFilesDir(), "data_settings.csv"));
+        settings.load(get_save_file("data_settings.csv"));
     }
 
     @Override
     protected void onPause() {
         Log.d(getString(R.string.app_name), "PAUSE");
+        saveData();
         super.onPause();
     }
 
