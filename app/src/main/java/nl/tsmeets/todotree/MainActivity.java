@@ -16,7 +16,10 @@ import androidx.annotation.Nullable;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,6 +35,7 @@ public class MainActivity extends Activity {
     public Tree tree;
     public Settings settings = new Settings();
     private static final int INTENT_CODE_EXPORT_CSV = 1;
+    private static final int INTENT_CODE_IMPORT_CSV = 2;
 
     private boolean node_is_below(Node child, Node parent) {
         if (child == null) return false;
@@ -169,14 +173,16 @@ public class MainActivity extends Activity {
                 SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
                 Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
-                intent.setType("text/csv");
+                intent.setType("text/comma-separated-values");
                 intent.putExtra(Intent.EXTRA_TITLE, "TodoTree-data-" + f.format(new Date()) + ".csv");
                 startActivityForResult(intent, INTENT_CODE_EXPORT_CSV);
             });
 
             menu.add(getString(R.string.menu_import), () -> {
                 // TODO
-                Toast.makeText(this, "Sorry, this is not implemented yet :(", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("text/comma-separated-values");
+                startActivityForResult(intent, INTENT_CODE_IMPORT_CSV);
             });
 
             menu.add(getString(R.string.menu_remove_done), () -> {
@@ -274,8 +280,35 @@ public class MainActivity extends Activity {
         new NodeView(this, layout, n, size, editable, is_parent);
     }
 
+    private static void stream_copy(InputStream input, OutputStream output) throws IOException {
+        byte[] buffer = new byte[16 * 1024]; // 16 KB
+        for(;;) {
+            int len = input.read(buffer);
+            if(len <= 0) break;
+            output.write(buffer, 0, len);
+        }
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == INTENT_CODE_IMPORT_CSV && resultCode == RESULT_OK) {
+            Uri uri = data.getData();
+            try {
+                File temp_file = get_save_file("data.csv.tmp");
+                InputStream input  = getContentResolver().openInputStream(uri);
+                OutputStream output = new FileOutputStream(temp_file);
+                stream_copy(input, output);
+                input.close();
+                output.close();
+                tree.load(temp_file);
+                temp_file.delete();
+                view_node();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
         if (requestCode == INTENT_CODE_EXPORT_CSV && resultCode == RESULT_OK) {
             saveData();
             Uri uri = data.getData();
