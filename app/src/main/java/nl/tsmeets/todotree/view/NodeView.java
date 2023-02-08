@@ -72,15 +72,12 @@ public class NodeView implements TextWatcher, View.OnClickListener, View.OnDragL
         if (true) {
             this.checkbox = new ImageView(ctx);
             checkbox.setBackground(null);
+            checkbox.setScaleType(ImageView.ScaleType.FIT_CENTER);
             checkbox.setAdjustViewBounds(true);
-            checkbox.setMaxWidth(size);
-            checkbox.setMaxHeight(size);
-            checkbox.setMinimumWidth(size);
-            checkbox.setMinimumHeight(size);
             checkbox.setOnClickListener(this);
             checkbox.setScaleX(0.8f);
             checkbox.setScaleY(0.8f);
-            row.addView(checkbox);
+            row.addView(checkbox, size, size);
         }
 
         if (is_parent) row.setBackgroundResource(R.color.color1);
