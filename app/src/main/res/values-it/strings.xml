@@ -27,5 +27,6 @@
     <string name="menu_import">Import data</string>
     <string name="menu_settings">Settings</string>
     <string name="setting_insert_top">Insert nodes on top</string>
+    <string name="setting_insert_bottom">Insert new nodes on bottom</string>
     <string name="setting_scale">Interface scale</string>
 </resources>

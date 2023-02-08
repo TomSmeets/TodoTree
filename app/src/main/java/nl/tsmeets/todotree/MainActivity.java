@@ -47,7 +47,7 @@ public class MainActivity extends Activity {
     public void insert_node_with_text(String text) {
         Node n = new Node();
         n.text = text;
-        if(settings.insert_top) {
+        if (settings.insert_top) {
             tree.focus.prepend_node(n);
         } else {
             tree.focus.append_node(n);
@@ -140,10 +140,30 @@ public class MainActivity extends Activity {
         findViewById(R.id.main_list_button_more).setOnClickListener(v -> {
             SimplePopupMenu menu = new SimplePopupMenu(this, v);
 
-            menu.add(getString(R.string.menu_settings), () -> {
-                // TODO
-                Toast.makeText(this, "Sorry, this is not implemented yet :(", Toast.LENGTH_LONG).show();
+            menu.add(getString(R.string.setting_scale), () -> {
+                SimplePopupMenu m = new SimplePopupMenu(this, v);
+                int count = 4;
+                for (int i = -count; i <= count; ++i) {
+                    float scale = (float) Math.pow(2.0, (double) i / 3.0);
+                    String msg = String.format("%.0f%%", 100.0 * scale);
+                    m.add(msg, () -> {
+                        settings.ui_scale = scale;
+                        view_node();
+                    });
+                }
+
+                m.show();
             });
+
+            if (settings.insert_top) {
+                menu.add(getString(R.string.setting_insert_bottom), () -> {
+                    settings.insert_top = false;
+                });
+            } else {
+                menu.add(getString(R.string.setting_insert_top), () -> {
+                    settings.insert_top = true;
+                });
+            }
 
             menu.add(getString(R.string.menu_export), () -> {
                 SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
@@ -181,7 +201,9 @@ public class MainActivity extends Activity {
         view_node(tree.root);
     }
 
-    public File get_save_file(String name) { return new File(getFilesDir(), name); }
+    public File get_save_file(String name) {
+        return new File(getFilesDir(), name);
+    }
 
     public void saveData() {
         tree.save(get_save_file("data.csv"));

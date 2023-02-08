@@ -26,5 +26,6 @@
     <string name="menu_remove_done_confirm">Weet je zeker dat je alle AFGEVINKTE items wil verwijderen?</string>
 
     <string name="setting_insert_top">Zet nieuwe items bovenaan</string>
+    <string name="setting_insert_bottom">Zet nieuwe items onderaan</string>
     <string name="setting_scale">Interface grootte</string>
 </resources>
