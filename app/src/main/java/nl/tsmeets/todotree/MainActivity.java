@@ -16,7 +16,6 @@ import androidx.annotation.Nullable;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -179,10 +178,17 @@ public class MainActivity extends Activity {
             });
 
             menu.add(getString(R.string.menu_import), () -> {
-                // TODO
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("text/comma-separated-values");
-                startActivityForResult(intent, INTENT_CODE_IMPORT_CSV);
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.dialog_confirmation)
+                        .setMessage(R.string.menu_import_warning)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton(R.string.dialog_ok, (dialog, which) -> {
+                            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                            intent.setType("text/comma-separated-values");
+                            startActivityForResult(intent, INTENT_CODE_IMPORT_CSV);
+                        })
+                        .setNegativeButton(R.string.dialog_cancel, null)
+                        .show();
             });
 
             menu.add(getString(R.string.menu_remove_done), () -> {

@@ -29,4 +29,5 @@
     <string name="setting_insert_top">Insert new nodes at the top</string>
     <string name="setting_insert_bottom">Insert new nodes at the bottom</string>
     <string name="setting_scale">Interface scale</string>
+    <string name="menu_import_warning">Importing data will overwrite the old data</string>
 </resources>
