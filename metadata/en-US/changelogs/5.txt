@@ -1,0 +1,6 @@
+Don't cancel insert when pressing outside the dialog
+Exported data can be imported again
+Setting for insert at top/bottom
+Insert multiple items in a row by pressing "Next"
+Interface scale can be changed
+Itallian and Dutch translations
