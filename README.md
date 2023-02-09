@@ -19,19 +19,20 @@ Adding tasks and notes is also very quick and easy.
 
 ![](doc/info.png)
 
-In the above screenshot you can see that the current focused node is "TodoTree". This node contains a number of children:
-* "Write the readme file"
-* "publish on GitHub"
-* "publish on fdroid"
-* "add license file"
+In the above screenshot you can see that the current focused node is "finish TodoTree v1.4". This node contains a number of children:
+* "update demo screenshot"
+* "add settings"
+* "finish translations"
+* "improve documentation"
+* "upload"
 
 And a successive list of parents:
-* "todo"
-* "demo"
-* "root"
+* "Wednesday"
+* "Week"
+* "TodoTree Demo"
 
-In this case you can see that the parent node of "TodoTree" is "todo". But here the parent of "todo" is also visible, this is "demo".
-And the parent of "demo" is also visible which is "root". This is the top most node. Each of these parent nodes can be visited by tapping on their name.
+In this case you can see that the parent node of "finish TodoTree v1.4" is "Wednesday". But here the parent of "Wednesday" is also visible, this is "Week".
+And the parent of "Week" is also visible which is "TodoTree Demo". The top most node is "root". Each of these parent nodes can be visited by tapping on their name.
 
 This list serves two purposes. The first is that it allows you to immediately see where exactly the current node is located.
 The second purpose is that it allows you to immediately travel back to any level in the tree, making the navigation very quick.
