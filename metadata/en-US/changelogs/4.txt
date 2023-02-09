@@ -1,0 +1,1 @@
+Fix bug where new data was not saved
