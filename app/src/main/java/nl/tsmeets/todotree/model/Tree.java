@@ -70,6 +70,7 @@ public class Tree {
     public void load(File file) {
         CSVFileFormat f = new CSVFileFormat();
         String[] hdr = f.read_begin(file);
+        if(hdr == null) return;
         assert hdr.length == 5;
 
         List<Node> nodes = new ArrayList<>();
