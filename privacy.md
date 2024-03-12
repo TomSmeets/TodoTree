@@ -10,4 +10,4 @@ All data that is entered by the user is stored locally the users device.
 The user is responsible for protecting their own data.
 
 # Contact
-For questions contact me at todotree@tsmeets.nl
+For questions contact me at <todotree@tsmeets.nl>

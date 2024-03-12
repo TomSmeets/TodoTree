@@ -7,3 +7,5 @@
 /app/release
 /.idea/*.xml
 /.idea/.gitignore
+/keystore*
+/releases

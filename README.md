@@ -6,6 +6,7 @@
 Keep your mind clear by quickly creating a nested tree of notes and tasks.
 
 Some example usages of this app are:
+
 * Creating quick notes on a given subject
 * Exploring complicated ideas for potential projects.
 * Maintain a list of tasks that have to be done
@@ -20,6 +21,7 @@ Adding tasks and notes is also very quick and easy.
 ![](doc/info.png)
 
 In the above screenshot you can see that the current focused node is "finish TodoTree v1.4". This node contains a number of children:
+
 * "update demo screenshot"
 * "add settings"
 * "finish translations"
@@ -27,6 +29,7 @@ In the above screenshot you can see that the current focused node is "finish Tod
 * "upload"
 
 And a successive list of parents:
+
 * "Wednesday"
 * "Week"
 * "TodoTree Demo"
