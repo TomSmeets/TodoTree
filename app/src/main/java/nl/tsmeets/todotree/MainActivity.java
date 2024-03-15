@@ -269,12 +269,13 @@ public class MainActivity extends Activity {
         float dpi = getResources().getDisplayMetrics().scaledDensity;
         int size = (int) (115.0f / 3.5 * dpi * settings.ui_scale);
 
+        int i = 0;
         for (Node n : node.parents())
-            add_node(list, n, size, false, true);
-        add_node(list, node, size, true, true);
+            add_node(list, n, size, false, true, i++);
+        add_node(list, node, size, true, true, i++);
 
         for (Node n : node.children()) {
-            add_node(list, n, size, false, false);
+            add_node(list, n, size, false, false, i++);
         }
 
         int yank_count = tree.yank.child_count();
@@ -286,8 +287,8 @@ public class MainActivity extends Activity {
         }
     }
 
-    public void add_node(LinearLayout layout, Node n, int size, boolean editable, boolean is_parent) {
-        new NodeView(this, layout, n, size, editable, is_parent);
+    public void add_node(LinearLayout layout, Node n, int size, boolean editable, boolean is_parent, int index) {
+        new NodeView(this, layout, n, size, editable, is_parent, index);
     }
 
     private static void stream_copy(InputStream input, OutputStream output) throws IOException {

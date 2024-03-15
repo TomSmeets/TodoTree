@@ -28,7 +28,7 @@ public class NodeView implements TextWatcher, View.OnClickListener, View.OnDragL
     private final ImageView checkbox;
     private TextView count;
 
-    public NodeView(MainActivity ctx, LinearLayout layout, Node node, int size, boolean editable, boolean is_parent) {
+    public NodeView(MainActivity ctx, LinearLayout layout, Node node, int size, boolean editable, boolean is_parent, int index) {
         this.node = node;
         this.row = new LinearLayout(ctx);
         this.ctx = ctx;
@@ -52,7 +52,7 @@ public class NodeView implements TextWatcher, View.OnClickListener, View.OnDragL
 
         text.setPadding(20, 0, 0, 0);
         text.setBackground(null);
-        text.setTextSize(TypedValue.COMPLEX_UNIT_PX, size * 0.7f);
+        text.setTextSize(TypedValue.COMPLEX_UNIT_PX, size * 0.5f);
         text.setGravity(Gravity.CENTER_VERTICAL);
         text.setText(node.text);
         text.setMinimumHeight(size);
@@ -81,17 +81,11 @@ public class NodeView implements TextWatcher, View.OnClickListener, View.OnDragL
         }
 
         if (is_parent) row.setBackgroundResource(R.color.color1);
-        else           row.setBackgroundResource(R.color.black);
+        else if (index % 2 == 0) row.setBackgroundResource(R.color.black);
+        else                     row.setBackgroundResource(R.color.black2);
 
         update(ctx);
         layout.addView(row);
-
-        ImageView pad = new ImageView(ctx);
-        pad.setBackground(null);
-        pad.setMaxHeight(8);
-        pad.setMinimumHeight(8);
-        pad.setBackgroundResource(R.color.dark_grey);
-        layout.addView(pad, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
     }
 
     public void update(Context ctx) {
