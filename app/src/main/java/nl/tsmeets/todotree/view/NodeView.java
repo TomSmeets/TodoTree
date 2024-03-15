@@ -25,7 +25,7 @@ public class NodeView implements TextWatcher, View.OnClickListener, View.OnDragL
     private final MainActivity ctx;
     private final LinearLayout row;
     private final TextView text;
-    private final ImageView checkbox;
+    private ImageView checkbox;
     private TextView count;
 
     public NodeView(MainActivity ctx, LinearLayout layout, Node node, int size, boolean editable, boolean is_parent, int index) {
@@ -50,9 +50,10 @@ public class NodeView implements TextWatcher, View.OnClickListener, View.OnDragL
             text.setOnLongClickListener(this);
         }
 
-        text.setPadding(20, 0, 0, 0);
+        int pad_size = (int) (size*0.4f);
+        text.setPadding(20, pad_size, 0, pad_size);
         text.setBackground(null);
-        text.setTextSize(TypedValue.COMPLEX_UNIT_PX, size * 0.5f);
+        text.setTextSize(TypedValue.COMPLEX_UNIT_PX, size * 0.50f);
         text.setGravity(Gravity.CENTER_VERTICAL);
         text.setText(node.text);
         text.setMinimumHeight(size);
@@ -61,28 +62,35 @@ public class NodeView implements TextWatcher, View.OnClickListener, View.OnDragL
         int child_count = node.child_count();
         if(child_count > 0) {
             this.count = new TextView(ctx);
+            count.setPadding(0, 0, 10, 0);
             count.setText(Integer.toString(child_count));
-            count.setTextSize(TypedValue.COMPLEX_UNIT_PX, size*0.4f);
+            count.setTextSize(TypedValue.COMPLEX_UNIT_PX, size*0.5f);
             count.setOnClickListener(this);
             count.setHeight(size);
             count.setGravity(Gravity.CENTER_VERTICAL);
             row.addView(count);
         }
 
-        if (true) {
+        if (child_count == 0) {
             this.checkbox = new ImageView(ctx);
             checkbox.setBackground(null);
             checkbox.setScaleType(ImageView.ScaleType.FIT_CENTER);
             checkbox.setAdjustViewBounds(true);
             checkbox.setOnClickListener(this);
             checkbox.setScaleX(0.8f);
-            checkbox.setScaleY(0.8f);
-            row.addView(checkbox, size, size);
+            checkbox.setScaleY(0.8f * ((float) size / (float) (size + pad_size*2)));
+            checkbox.setAlpha(0.5f);
+            row.addView(checkbox, size, size + pad_size*2);
         }
 
-        if (is_parent) row.setBackgroundResource(R.color.color1);
-        else if (index % 2 == 0) row.setBackgroundResource(R.color.black);
-        else                     row.setBackgroundResource(R.color.black2);
+        ImageView pad = new ImageView(ctx);
+        row.addView(pad, 20, size);
+
+        if (is_parent) {
+            row.setBackgroundResource(R.color.color1);
+        } else {
+            row.setBackgroundResource(index % 2 == 0 ? R.color.black : R.color.black2);
+        }
 
         update(ctx);
         layout.addView(row);
@@ -95,7 +103,7 @@ public class NodeView implements TextWatcher, View.OnClickListener, View.OnDragL
         }
 
         if (node.state == 0) text.setAlpha(1.0f);
-        if (node.state == 1) text.setAlpha(0.5f);
+        if (node.state == 1) text.setAlpha(0.4f);
     }
 
     @Override

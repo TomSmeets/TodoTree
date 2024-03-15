@@ -2,8 +2,12 @@
 <resources>
     <color name="color1">#000060</color>
     <color name="color2">#6969DF</color>
-    <color name="black">#000000</color>
-    <color name="black2">#080808</color>
+
+    <color name="color3">#151560</color>
+    <color name="color4">#202060</color>
+
+    <color name="black">#151515</color>
+    <color name="black2">#202020</color>
     <color name="white">#FFFFFF</color>
     <color name="grey">#888888</color>
     <color name="dark_grey">#202020</color>
