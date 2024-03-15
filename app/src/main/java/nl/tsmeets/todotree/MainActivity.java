@@ -31,10 +31,14 @@ import nl.tsmeets.todotree.view.NodeView;
 import nl.tsmeets.todotree.view.SimplePopupMenu;
 
 public class MainActivity extends Activity {
-    public Tree tree;
-    public Settings settings = new Settings();
     private static final int INTENT_CODE_EXPORT_CSV = 1;
     private static final int INTENT_CODE_IMPORT_CSV = 2;
+
+    // The current state
+    public Tree tree;
+
+    // Application Settings
+    public Settings settings = new Settings();
 
     private boolean node_is_below(Node child, Node parent) {
         if (child == null) return false;

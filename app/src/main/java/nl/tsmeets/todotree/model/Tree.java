@@ -1,9 +1,12 @@
 package nl.tsmeets.todotree.model;
 
+import android.util.Log;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import nl.tsmeets.todotree.MainActivity;
 import nl.tsmeets.todotree.store.CSVFileFormat;
 
 public class Tree {
@@ -12,6 +15,8 @@ public class Tree {
     public Node focus;
 
     public Tree() {
+        // Create default Tree
+        // Can be overridden with load()
         root = new Node();
         root.text = "root";
 
@@ -27,11 +32,16 @@ public class Tree {
         yank.prepend_node(n);
     }
 
-    public void paste(Settings settings) { paste(this.focus, settings); }
+    public void paste(Settings settings) {
+        paste(this.focus, settings);
+    }
 
     public void paste(Node parent, Settings settings) {
         Node n = yank.child;
-        if(n == null) return;
+        if(n == null) {
+            Log.w("Tree", "Cannot paste, Nothing Yanked");
+            return;
+        }
         n.detach();
         if(settings.insert_top) {
             parent.prepend_node(n);
