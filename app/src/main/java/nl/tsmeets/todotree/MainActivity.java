@@ -82,8 +82,7 @@ public class MainActivity extends Activity {
         if (node.parent == null)
             return;
 
-
-        int child_count = node.child_count();
+        int child_count = node.child_count_total();
 
         Runnable action = () -> {
             Node parent = node.parent;
@@ -112,9 +111,6 @@ public class MainActivity extends Activity {
 
         findViewById(R.id.main_list_button_add).setOnClickListener(l -> show_insert_dialog());
 
-        findViewById(R.id.main_list_button_del).setOnClickListener(l -> {
-            remove_node_with_prompt(tree.focus);
-        });
 
         findViewById(R.id.main_list_button_yank).setOnClickListener(l -> {
             if (tree.focus.parent != null) {
@@ -195,6 +191,10 @@ public class MainActivity extends Activity {
                         .setNegativeButton(R.string.dialog_no, null)
                         .show();
             });
+
+            menu.add(getString(R.string.menu_remove_tree), () -> {
+                remove_node_with_prompt(tree.focus);
+            });
             menu.show();
         });
 
@@ -257,11 +257,11 @@ public class MainActivity extends Activity {
         int i = 0;
         for (Node n : node.parents())
             add_node(list, n, size, false, true, i++);
+
         add_node(list, node, size, true, true, i++);
 
-        for (Node n : node.child_list()) {
+        for (Node n : node.child_list())
             add_node(list, n, size, false, false, i++);
-        }
 
         int yank_count = tree.yank.child_count();
         Button paste_button = findViewById(R.id.main_list_button_paste);

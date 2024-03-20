@@ -27,6 +27,7 @@
     <string name="menu_import_warning">Importing data will overwrite the old data!</string>
     <string name="menu_remove_done">Remove done</string>
     <string name="menu_remove_done_confirm">Do you want to remove all DONE nodes?</string>
+    <string name="menu_remove_tree">Remove Subtree</string>
 
     <string name="setting_insert_top">Insert new nodes at the top</string>
     <string name="setting_insert_bottom">Insert new nodes at the bottom</string>
