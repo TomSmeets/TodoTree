@@ -4,14 +4,14 @@ plugins {
 
 android {
     namespace 'nl.tsmeets.todotree'
-    compileSdk 32
+    compileSdk 34
 
     defaultConfig {
         applicationId "nl.tsmeets.todotree"
         minSdk 26
-        targetSdk 32
-        versionCode 5
-        versionName "1.4"
+        targetSdk 34
+        versionCode 6
+        versionName "1.5"
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
