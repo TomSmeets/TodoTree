@@ -40,25 +40,8 @@ public class MainActivity extends Activity {
     // Application Settings
     public Settings settings = new Settings();
 
-    private boolean node_is_below(Node child, Node parent) {
-        if (child == null) return false;
-        if (child == parent) return true;
-        return node_is_below(child.parent, parent);
-    }
-
-    private void validate() {
-        assert tree.focus != null;
-        assert node_is_below(tree.focus, tree.root);
-    }
-
     public void insert_node_with_text(String text) {
-        Node n = new Node();
-        n.text = text;
-        if (settings.insert_top) {
-            tree.focus.prepend_node(n);
-        } else {
-            tree.focus.append_node(n);
-        }
+        tree.focus.insert(new Node(text), settings.insert_top);
         view_node();
         saveData();
     }
@@ -94,6 +77,34 @@ public class MainActivity extends Activity {
         d.show();
     }
 
+
+    public void remove_node_with_prompt(Node node) {
+        if (node.parent == null)
+            return;
+
+
+        int child_count = node.child_count();
+
+        Runnable action = () -> {
+            Node parent = node.parent;
+            node.detach();
+            view_node(parent);
+            saveData();
+        };
+
+        if (child_count > 0) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.dialog_confirmation)
+                    .setMessage(getString(R.string.button_remove_confirm, child_count))
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton(R.string.dialog_yes, (dialog, which) -> action.run())
+                    .setNegativeButton(R.string.dialog_no, null)
+                    .show();
+        } else {
+            action.run();
+        }
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,29 +113,7 @@ public class MainActivity extends Activity {
         findViewById(R.id.main_list_button_add).setOnClickListener(l -> show_insert_dialog());
 
         findViewById(R.id.main_list_button_del).setOnClickListener(l -> {
-            Node node = tree.focus;
-            if (node.parent != null) {
-                int child_count = node.child_count();
-
-                Runnable action = () -> {
-                    Node parent = node.parent;
-                    node.detach();
-                    view_node(parent);
-                    saveData();
-                };
-
-                if (child_count > 0) {
-                    new AlertDialog.Builder(this)
-                            .setTitle(R.string.dialog_confirmation)
-                            .setMessage(getString(R.string.button_remove_confirm, child_count))
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .setPositiveButton(R.string.dialog_yes, (dialog, which) -> action.run())
-                            .setNegativeButton(R.string.dialog_no, null)
-                            .show();
-                } else {
-                    action.run();
-                }
-            }
+            remove_node_with_prompt(tree.focus);
         });
 
         findViewById(R.id.main_list_button_yank).setOnClickListener(l -> {
@@ -149,16 +138,13 @@ public class MainActivity extends Activity {
 
             menu.add(getString(R.string.setting_scale), () -> {
                 SimplePopupMenu m = new SimplePopupMenu(this, v);
-                int count = 4;
-                for (int i = -count; i <= count; ++i) {
-                    float scale = (float) Math.pow(2.0, (double) i / 3.0);
-                    String msg = String.format("%.0f%%", 100.0 * scale);
-                    m.add(msg, () -> {
-                        settings.ui_scale = scale;
+                int[] scales = { 40, 60, 80, 100, 120, 140, 160, 200};
+                for (int scale : scales) {
+                    m.add(String.format("%d%%", scale), () -> {
+                        settings.ui_scale = (float) scale / 100;
                         view_node();
                     });
                 }
-
                 m.show();
             });
 
@@ -201,7 +187,7 @@ public class MainActivity extends Activity {
                         .setMessage(R.string.menu_remove_done_confirm)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setPositiveButton(R.string.dialog_yes, (dialog, which) -> {
-                            for (Node n : tree.focus.children()) {
+                            for (Node n : tree.focus.child_list()) {
                                 if (n.state == 1) n.detach();
                             }
                             view_node();
@@ -258,7 +244,6 @@ public class MainActivity extends Activity {
 
     public void view_node(Node node) {
         tree.focus = node;
-        validate();
 
         LinearLayout list = findViewById(R.id.main_list);
 
@@ -274,7 +259,7 @@ public class MainActivity extends Activity {
             add_node(list, n, size, false, true, i++);
         add_node(list, node, size, true, true, i++);
 
-        for (Node n : node.children()) {
+        for (Node n : node.child_list()) {
             add_node(list, n, size, false, false, i++);
         }
 

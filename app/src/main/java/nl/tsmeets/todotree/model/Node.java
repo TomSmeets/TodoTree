@@ -31,7 +31,9 @@ public class Node {
     public Node parent;
 
     public Node() { }
+    public Node (String text) { this.text = text; }
 
+    /* Remove this node from it's parent */
     public void detach() {
         assert this.parent != null;
 
@@ -50,36 +52,39 @@ public class Node {
         this.parent = null;
     }
 
-    public void prepend_node(Node node) {
-        assert node.parent == null;
 
+    /* Insert child at top */
+    public void insert_before(Node node) {
+        assert node.parent == null;
         node.next = this.child;
         this.child = node;
-
         node.parent = this;
     }
 
-    public Node last_child() {
-        Node n = this.child;
-        if (n == null) return null;
-
-        for (; ; ) {
-            if (n.next == null) return n;
-            n = n.next;
-        }
-    }
-
-    public void append_node(Node node) {
+    /* Insert Node at bottom */
+    public void insert_after(Node node) {
         assert node.parent == null;
-
         node.parent = this;
+
+        // No children
         if (this.child == null) {
             this.child = node;
             return;
         }
 
-        Node last = this.last_child();
+        // More children
+        Node last = this.child_last();
         last.next = node;
+    }
+
+    /* Get last child */
+    public Node child_last() {
+        Node n = this.child;
+        if (n == null) return null;
+        while(true) {
+            if (n.next == null) return n;
+            n = n.next;
+        }
     }
 
     public void insert_after_me(Node node) {
@@ -90,6 +95,14 @@ public class Node {
         this.next = node;
     }
 
+    public void insert(Node child, boolean insert_top) {
+        if (insert_top) {
+            this.insert_before(child);
+        } else {
+            this.insert_after(child);
+        }
+    }
+
     public int child_count() {
         int count = 0;
         for (Node child = this.child; child != null; child = child.next) {
@@ -98,7 +111,7 @@ public class Node {
         return count;
     }
 
-    public int child_todo_count() {
+    public int child_count_todo() {
         int count = 0;
         for (Node child = this.child; child != null; child = child.next) {
             if (child.state == 0) count++;
@@ -106,11 +119,11 @@ public class Node {
         return count;
     }
 
-    public int total_child_count() {
+    public int child_count_total() {
         int count = 0;
         for (Node child = this.child; child != null; child = child.next) {
             count++;
-            count += child.total_child_count();
+            count += child.child_count_total();
         }
         return count;
     }
@@ -124,7 +137,7 @@ public class Node {
         return l;
     }
 
-    public List<Node> children() {
+    public List<Node> child_list() {
         List<Node> l = new ArrayList<>();
         for (Node child = this.child; child != null; child = child.next) {
             l.add(child);

@@ -9,6 +9,7 @@ import java.util.List;
 import nl.tsmeets.todotree.MainActivity;
 import nl.tsmeets.todotree.store.CSVFileFormat;
 
+/* Model */
 public class Tree {
     public Node root;
     public Node yank;
@@ -29,7 +30,7 @@ public class Tree {
 
     public void yank(Node n) {
         n.detach();
-        yank.prepend_node(n);
+        yank.insert_before(n);
     }
 
     public void paste(Settings settings) {
@@ -37,17 +38,13 @@ public class Tree {
     }
 
     public void paste(Node parent, Settings settings) {
-        Node n = yank.child;
-        if(n == null) {
+        Node node = yank.child;
+        if(node == null) {
             Log.w("Tree", "Cannot paste, Nothing Yanked");
             return;
         }
-        n.detach();
-        if(settings.insert_top) {
-            parent.prepend_node(n);
-        } else {
-            parent.append_node(n);
-        }
+        node.detach();
+        parent.insert(node, settings.insert_top);
     }
 
     private int save_id_counter;
@@ -59,7 +56,6 @@ public class Tree {
         root.next = yank;
         yank.next = null;
         save_impl(f, root);
-
         f.write_end();
     }
 

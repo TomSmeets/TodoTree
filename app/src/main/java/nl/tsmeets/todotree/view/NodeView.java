@@ -71,7 +71,7 @@ public class NodeView implements TextWatcher, View.OnClickListener, View.OnDragL
             row.addView(count);
         }
 
-        if (child_count == 0) {
+        if (true) {
             this.checkbox = new ImageView(ctx);
             checkbox.setBackground(null);
             checkbox.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -87,7 +87,7 @@ public class NodeView implements TextWatcher, View.OnClickListener, View.OnDragL
         row.addView(pad, 20, size);
 
         if (is_parent) {
-            row.setBackgroundResource(R.color.color1);
+            row.setBackgroundResource(index % 2 == 0 ? R.color.color3 : R.color.color4);
         } else {
             row.setBackgroundResource(index % 2 == 0 ? R.color.black : R.color.black2);
         }
@@ -103,16 +103,14 @@ public class NodeView implements TextWatcher, View.OnClickListener, View.OnDragL
         }
 
         if (node.state == 0) text.setAlpha(1.0f);
-        if (node.state == 1) text.setAlpha(0.4f);
+        if (node.state == 1) text.setAlpha(0.3f);
     }
 
     @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-    }
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
     @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-    }
+    public void onTextChanged(CharSequence s, int start, int before, int count) { }
 
     @Override
     public void afterTextChanged(Editable s) {
@@ -138,13 +136,17 @@ public class NodeView implements TextWatcher, View.OnClickListener, View.OnDragL
             Node drag = (Node) event.getLocalState();
             if (drag == null) return false;
             if (drag == node) {
-
+                SimplePopupMenu menu = new SimplePopupMenu(this.ctx, v);
+                menu.add(ctx.getString(R.string.button_remove), () -> {
+                    ctx.remove_node_with_prompt(node);
+                });
+                menu.show();
             } else if (drag.parent == node.parent) {
                 drag.detach();
                 node.insert_after_me(drag);
             } else if (drag.parent == node) {
                 drag.detach();
-                node.prepend_node(drag);
+                node.insert_before(drag);
             }
             ctx.view_node();
             return true;
@@ -158,13 +160,14 @@ public class NodeView implements TextWatcher, View.OnClickListener, View.OnDragL
         Log.d("TodoTree", "LONG " + node.text);
         String tag = node.text;
 
-        // NOTE: there is still a bug, if we drag outside the window
+        // NOTE: there is still a bug, if  drag outside the window
         // the node stays green
         row.setBackgroundColor(0xff006000);
         View.DragShadowBuilder shadow = new View.DragShadowBuilder(row);
         ClipData.Item item = new ClipData.Item(tag);
         ClipData clip = new ClipData(tag, new String[]{ClipDescription.MIMETYPE_TEXT_PLAIN}, item);
         v.startDragAndDrop(clip, shadow, node, View.DRAG_FLAG_OPAQUE);
+
         return true;
     }
 }
